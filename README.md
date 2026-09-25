@@ -338,7 +338,12 @@ faktiskt bor.
 - ❌ Interactive Server / Auto render mode — bara WebAssembly
 - ❌ Realtid (SignalR) — maskiner som själva pushar data (bra fortsättning)
 - ❌ Komponentbibliotek (MudBlazor m.fl.) — vi bygger själva
-- ❌ Aspire, deploy
+- ❌ Aspire
+
+Utanför fasplanen:
+
+- 🐳 Docker-image publiceras till ghcr.io via GitHub Actions
+  (`Dockerfile`, `.github/workflows/publish.yml`) vid push till `master`
 
 Fokus här: **komponenter, dataflöde och lager — från en sida till en app med
 utbytbar backend**.
