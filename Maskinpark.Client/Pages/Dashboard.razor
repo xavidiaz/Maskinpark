@@ -8,7 +8,7 @@
 
 <MachineStats Machines="machines" />
 
-<MachineList Machines="machines" ToggleStatus="ToggleStatus" />
+<MachineList Machines="machines" OnToggleStatus="ToggleStatus" OnSendData="SendData" />
 
 @code {
   private List<Machine> machines =
@@ -28,6 +28,19 @@ DateTime.UtcNow.AddHours(-1) },
   private void ToggleStatus(Machine machine)
   {
     machine.IsOnline = !machine.IsOnline;
+    machine.LastUpdated = DateTime.UtcNow;
+  }
+
+  private static readonly string[] sampleData =
+  [
+      "Temp: 72°C", "RPM: 1480", "Amps: 31", "Pressure: 118 bar", "Vibration: 0.4g"
+  ];
+
+  private void SendData(Machine machine)
+  {
+    if (!machine.IsOnline) return;
+
+    machine.LastData = sampleData[Random.Shared.Next(sampleData.Length)];
     machine.LastUpdated = DateTime.UtcNow;
   }
 

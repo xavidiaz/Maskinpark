@@ -1,31 +1,39 @@
 @using Maskinpark.Client.Models
+
 <div class="card">
   <div class="card-header fw-semibold">List of Machines</div>
   <div class="table-responsive">
     <table class="table table-hover align-middle mb-0">
-      <thead>
+      <thead class="table-light">
         <tr>
           <th>Name</th>
-          <th>Id</th>
           <th>Status</th>
           <th>Last Data</th>
           <th>Last Updated</th>
+          <th class="text-end">Actions</th>
         </tr>
       </thead>
       <tbody>
         @foreach (var m in Machines)
         {
           <tr>
-            <td>@m.Name</td>
-            <td><small class="text-muted">@m.Id</small></td>
             <td>
-              <button class="btn btn-sm @(m.IsOnline ? "btn-success" : "btn-outline-secondary")"
-                      title="@(m.IsOnline ? "Stop" : "Start")" @onclick="() => ToggleStatus.InvokeAsync(m)">
+              <div class="fw-semibold">@m.Name</div>
+              <small class="text-muted font-monospace">@m.Id</small>
+            </td>
+            <td>
+              <button class="btn btn-sm rounded-pill @(m.IsOnline ? "btn-success" : "btn-outline-secondary")"
+                      title="@(m.IsOnline ? "Stop" : "Start")" @onclick="() => OnToggleStatus.InvokeAsync(m)">
                 @(m.IsOnline ? "Online" : "Offline")
               </button>
             </td>
             <td>@m.LastData</td>
-            <td>@m.LastUpdated.ToString("yyyy-MM-dd HH:mm")</td>
+            <td class="text-nowrap">@m.LastUpdated.ToString("yyyy-MM-dd HH:mm")</td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-primary" @onclick="() => OnSendData.InvokeAsync(m)">
+                Send Data
+              </button>
+            </td>
           </tr>
         }
       </tbody>
@@ -39,5 +47,8 @@
   public IReadOnlyList<Machine> Machines { get; set; } = [];
 
   [Parameter]
-  public EventCallback<Machine> ToggleStatus { get; set; }
+  public EventCallback<Machine> OnToggleStatus { get; set; }
+
+  [Parameter]
+  public EventCallback<Machine> OnSendData { get; set; }
 }
