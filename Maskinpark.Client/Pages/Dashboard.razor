@@ -1,4 +1,48 @@
 @page "/dashboard"
+@using Maskinpark.Client.Models
 
 <PageTitle>Dashboard</PageTitle>
-<h1>Hello från Dashboard</h1>
+
+<h1>Dashboard</h1>
+
+<div class="table-responsive">
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Id</th>
+        <th>Status</th>
+        <th>Last Data</th>
+        <th>Last Updated</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var m in machines)
+      {
+        <tr>
+          <td>@m.Name</td>
+          <td><small class="text-muted">@m.Id</small></td>
+          <td>@(m.IsOnline ? "Online" : "Offline")</td>
+          <td>@m.LastData</td>
+          <td>@m.LastUpdated.ToString("yyyy-MM-dd HH:mm")</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+@code {
+  private List<Machine> machines =
+  [
+    new Machine { Id = Guid.NewGuid(), Name = "Mixer 01", IsOnline = true, LastData
+  = "Temp: 75°C", LastUpdated = DateTime.UtcNow.AddMinutes(-5) },
+      new Machine { Id = Guid.NewGuid(), Name = "Mixer 02", IsOnline = true, LastData
+  = "RPM: 1500", LastUpdated = DateTime.UtcNow.AddMinutes(-2) },
+      new Machine { Id = Guid.NewGuid(), Name = "Crusher 01", IsOnline = true, LastData
+  = "Amps: 34", LastUpdated = DateTime.UtcNow.AddMinutes(-20) },
+      new Machine { Id = Guid.NewGuid(), Name = "Pump 01", IsOnline = false, LastData
+  = "Pressure: 120 bar", LastUpdated = DateTime.UtcNow.AddHours(-3) },
+      new Machine { Id = Guid.NewGuid(), Name = "Borrmaskin", IsOnline = false, LastData
+  = "Vibration: 0.6g", LastUpdated = DateTime.UtcNow.AddHours(-1) },
+    ];
+}
