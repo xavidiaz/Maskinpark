@@ -1,0 +1,46 @@
+@using Maskinpark.Client.Models
+<div class="row g-3 mb-4">
+  <div class="col-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-muted small">Total Machines</div>
+        <div class="fs-3 fw-semibold">@Total</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-muted small">Machines Online</div>
+        <div class="fs-3 fw-semibold text-success">@OnlineCount</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-muted small">Machines Offline</div>
+        <div class="fs-3 fw-semibold text-danger">@OfflineCount</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-muted small">Last Updated</div>
+        <div class="fs-5 fw-semibold">@(LastUpdatedName ?? "–")</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+@code {
+  [Parameter]
+  public IReadOnlyList<Machine> Machines { get; set; } = [];
+
+  private int Total => Machines.Count;
+  private int OnlineCount => Machines.Count(m => m.IsOnline);
+  private int OfflineCount => Machines.Count(m => !m.IsOnline);
+  private string? LastUpdatedName => Machines.MaxBy(m => m.LastUpdated)?.Name;
+}
