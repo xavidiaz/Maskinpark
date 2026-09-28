@@ -8,7 +8,7 @@
 
 <MachineStats Machines="machines" />
 
-<MachineList Machines="machines" />
+<MachineList Machines="machines" ToggleStatus="ToggleStatus" />
 
 @code {
   private List<Machine> machines =
@@ -24,5 +24,11 @@ DateTime.UtcNow.AddHours(-3) },
     new Machine { Id = Guid.NewGuid(), Name = "Borrmaskin", IsOnline = false, LastData = "Vibration: 0.6g", LastUpdated =
 DateTime.UtcNow.AddHours(-1) },
   ];
+
+  private void ToggleStatus(Machine machine)
+  {
+    machine.IsOnline = !machine.IsOnline;
+    machine.LastUpdated = DateTime.UtcNow;
+  }
 
 }

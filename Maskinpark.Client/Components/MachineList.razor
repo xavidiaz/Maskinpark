@@ -18,7 +18,12 @@
           <tr>
             <td>@m.Name</td>
             <td><small class="text-muted">@m.Id</small></td>
-            <td>@(m.IsOnline ? "Online" : "Offline")</td>
+            <td>
+              <button class="btn btn-sm @(m.IsOnline ? "btn-success" : "btn-outline-secondary")"
+                      title="@(m.IsOnline ? "Stop" : "Start")" @onclick="() => ToggleStatus.InvokeAsync(m)">
+                @(m.IsOnline ? "Online" : "Offline")
+              </button>
+            </td>
             <td>@m.LastData</td>
             <td>@m.LastUpdated.ToString("yyyy-MM-dd HH:mm")</td>
           </tr>
@@ -31,5 +36,8 @@
 @code
 {
   [Parameter]
-  public List<Machine> Machines { get; set; } = [];
+  public IReadOnlyList<Machine> Machines { get; set; } = [];
+
+  [Parameter]
+  public EventCallback<Machine> ToggleStatus { get; set; }
 }
