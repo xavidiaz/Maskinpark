@@ -6,6 +6,14 @@
 
 <h1 class="mb-4">Dashboard</h1>
 
+<EditForm Model="@newMachine" OnValidSubmit="@Create" class="mb-4">
+  <DataAnnotationsValidator />
+  <div class="input-group">
+    <InputText @bind-Value="newMachine.Name" class="form-control" placeholder="Machine name" />
+    <button type="submit" class="btn btn-primary">Add Machine</button>
+  </div>
+</EditForm>
+
 <MachineStats Machines="machines" />
 
 <MachineList Machines="machines" OnToggleStatus="ToggleStatus" OnSendData="SendData" OnDelete="Delete" />
@@ -25,23 +33,15 @@ DateTime.UtcNow.AddHours(-3) },
 DateTime.UtcNow.AddHours(-1) },
   ];
 
-  private void ToggleStatus(Machine machine)
+  private Machine newMachine = new() { Name = "" };
+
+  private void Create()
   {
-    machine.IsOnline = !machine.IsOnline;
-    machine.LastUpdated = DateTime.UtcNow;
-  }
-
-  private static readonly string[] sampleData =
-  [
-      "Temp: 72°C", "RPM: 1480", "Amps: 31", "Pressure: 118 bar", "Vibration: 0.4g"
-  ];
-
-  private void SendData(Machine machine)
-  {
-    if (!machine.IsOnline) return;
-
-    machine.LastData = sampleData[Random.Shared.Next(sampleData.Length)];
-    machine.LastUpdated = DateTime.UtcNow;
+    newMachine.Id = Guid.NewGuid();
+    newMachine.LastUpdated = DateTime.UtcNow;
+    machines.Add(newMachine);
+    // rensa fältet
+    newMachine = new() { Name = "" };
   }
 
   private void Delete(Machine machine)
@@ -51,6 +51,25 @@ DateTime.UtcNow.AddHours(-1) },
       // TODO(Fas 8): Visa feedback om maskinen inte finns i listan
     }
   }
+
+  private void ToggleStatus(Machine machine)
+  {
+    machine.IsOnline = !machine.IsOnline;
+    machine.LastUpdated = DateTime.UtcNow;
+  }
+
+  private void SendData(Machine machine)
+  {
+    if (!machine.IsOnline) return;
+
+    machine.LastData = sampleData[Random.Shared.Next(sampleData.Length)];
+    machine.LastUpdated = DateTime.UtcNow;
+  }
+
+  private static readonly string[] sampleData =
+  [
+      "Temp: 72°C", "RPM: 1480", "Amps: 31", "Pressure: 118 bar", "Vibration: 0.4g"
+  ];
 
 }
 
