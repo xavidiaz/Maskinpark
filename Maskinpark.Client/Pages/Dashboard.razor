@@ -8,7 +8,7 @@
 
 <MachineStats Machines="machines" />
 
-<MachineList Machines="machines" OnToggleStatus="ToggleStatus" OnSendData="SendData" />
+<MachineList Machines="machines" OnToggleStatus="ToggleStatus" OnSendData="SendData" OnDelete="Delete" />
 
 @code {
   private List<Machine> machines =
@@ -44,4 +44,13 @@ DateTime.UtcNow.AddHours(-1) },
     machine.LastUpdated = DateTime.UtcNow;
   }
 
+  private void Delete(Machine machine)
+  {
+    if (!machines.Remove(machine))
+    {
+      // TODO(Fas 8): Visa feedback om maskinen inte finns i listan
+    }
+  }
+
 }
+

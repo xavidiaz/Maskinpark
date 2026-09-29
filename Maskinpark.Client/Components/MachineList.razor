@@ -33,6 +33,10 @@
               <button class="btn btn-sm btn-outline-primary" @onclick="() => OnSendData.InvokeAsync(m)">
                 Send Data
               </button>
+
+              <button class="btn btn-sm btn-outline-primary" @onclick="() => OnDelete.InvokeAsync(m)">
+                Delete
+              </button>
             </td>
           </tr>
         }
@@ -51,4 +55,7 @@
 
   [Parameter]
   public EventCallback<Machine> OnSendData { get; set; }
+
+  [Parameter]
+  public EventCallback<Machine> OnDelete { get; set; }
 }
