@@ -1,7 +1,40 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Maskinpark</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="container py-4" style="max-width: 800px;">
+  <h1>Maskinpark</h1>
+  <p class="lead">
+    Ett managementsystem för en industriell maskinpark, byggt i Blazor WebAssembly (.NET 10).
+  </p>
 
-Welcome to your new app.
+  <h2 class="h4 mt-4">Om övningen</h2>
+  <p>
+    Projektet bygger på en Lexicon-labb. Supporttekniker ska kunna övervaka,
+    administrera och styra maskiner via ett dashboard.
+  </p>
+  <p>
+    Jag bygger det med <strong>learning by refactoring</strong>: jag börjar med
+    det enklaste som fungerar, en sida med en hårdkodad lista. Sedan inför jag
+    komponenter, EventCallbacks, services och dependency injection en i taget,
+    först när jag har känt problemet som de löser. Hela resan är uppdelad i 13 faser.
+  </p>
+
+  <h2 class="h4 mt-4">Testa själv</h2>
+  <ol>
+    <li>Klicka på <strong>Machine Dashboard</strong> i menyn.</li>
+    <li>Lägg till en maskin, se status och ta bort maskiner.</li>
+  </ol>
+  <p class="text-muted small">
+    Datan ligger än så länge i webbläsarens minne. Om du laddar om sidan nollställs allt.
+  </p>
+  <a class="btn btn-primary" href="dashboard">Öppna Machine Dashboard</a>
+
+  <h2 class="h4 mt-5">Källkod och planering</h2>
+  <ul>
+    <li><a href="https://github.com/xavidiaz/Maskinpark" target="_blank" rel="noopener">GitHub-repo</a>: kod, README med
+      fasplan och commit-historik per steg</li>
+      <li><a href="https://github.com/users/xavidiaz/projects/12" target="_blank" rel="noopener">GitHub Project</a>:
+        issues och status för varje steg</li>
+      </ul>
+    </div>
